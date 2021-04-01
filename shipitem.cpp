@@ -4,7 +4,7 @@
 #include "QDebug"
 
 
-ShipItem::ShipItem(Ship* ship)
+ShipItem::ShipItem(const Ship *ship)
 {
   this->x = ship->start.x;
   this->y=ship->start.y;

@@ -7,9 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    initScene();
-
-
+    initGame();
 }
 
 
@@ -19,23 +17,31 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::initScene()
+void MainWindow::initGame()
 {
-    gameModel_1 =  new GameModel();
-    gameModel_2 =  new GameModel();
+    gameModel_1 =  new BoardModel();
+    gameModel_2 =  new BoardModel();
+
+    boardController1 = new GameController(gameModel_1);
+    boardController1->placeShips();
+
+    boardController2 = new GameController(gameModel_2);
+    boardController2->placeShips();
+
+
+
+
 
     userScene1 = new BoardGameScene(gameModel_1);
-    userScene1->setSceneRect(0,0,100,100);
-
     userScene2 = new BoardGameScene(gameModel_2);
-     userScene2->setSceneRect(0,0,100,100);
+
+    userScene1->setSceneRect(0,0,100,100);
+    userScene2->setSceneRect(0,0,100,100);
 
 
-    for (int i=0;i<10;i++)
-      {
-      ShipItem *item = new ShipItem(gameModel_1->ships[i]);
-      userScene1->addItem(item);
-      }
+
+/*
+
 
     for (int i=0;i<10;i++)
       {
@@ -43,7 +49,7 @@ void MainWindow::initScene()
       userScene2->addItem(item);
       }
 
-
+*/
 
 
 

@@ -60,7 +60,7 @@
       <string>Мой флот</string>
      </property>
     </widget>
-    <widget class="QGraphicsView" name="gameBoardView_1">
+    <widget class="GameView" name="gameBoardView_1">
      <property name="geometry">
       <rect>
        <x>20</x>
@@ -70,7 +70,7 @@
       </rect>
      </property>
     </widget>
-    <widget class="QGraphicsView" name="gameBoardView_2">
+    <widget class="GameView" name="gameBoardView_2">
      <property name="geometry">
       <rect>
        <x>550</x>
@@ -81,19 +81,6 @@
      </property>
     </widget>
    </widget>
-   <widget class="QWidget" name="widget" native="true">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>80</y>
-      <width>271</width>
-      <height>671</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background-image:url(:/images/ships.png);</string>
-    </property>
-   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -101,12 +88,19 @@
      <x>0</x>
      <y>0</y>
      <width>1365</width>
-     <height>34</height>
+     <height>16</height>
     </rect>
    </property>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>GameView</class>
+   <extends>QGraphicsView</extends>
+   <header>gameview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

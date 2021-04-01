@@ -1,33 +1,24 @@
-#include "GameModel.h"
-#include "QRandomGenerator"
-#include "QTime"
-#include "QDebug"
+#include "GameController.h"
 
+ GameController::GameController(BoardModel* model)
+ {
+   _model = model;
+ }
 
-
-Cell GameModel::getCell(int x, int y)
+void GameController::CursorSceneCoordsX(int coordX)
 {
-    if ((x<0)||(x>9)||(y<0)||(y>9))
-    {
-        return Cell{CellType::FREE,nullptr};
-    }
-    else
-    {
-        return board[x][y];
-    }
+
 }
 
-void GameModel::setCell(int x, int y, Cell cell)
+void GameController::CursorSceneCoordsY(int coordY)
 {
-    if ((x>=0)&&(x<=9)&&(y>=0)&&(y<=9))
-    {
-        board[x][y] = cell;
-    }
+
 }
 
-bool GameModel::placeShips()
+
+bool GameController::placeShips()
 {
-    QRandomGenerator* gen = QRandomGenerator::global();
+
     int indexShip=0;
     int len_ship[10] = {4,3,3,2,2,2,1,1,1,1};
     long long N = 0;
@@ -55,7 +46,7 @@ bool GameModel::placeShips()
 
         if (placeShip(ship))
         {
-            ships[indexShip]=ship;
+            _model->setShip(ship,indexShip);
             indexShip++;
         }
         else
@@ -74,28 +65,7 @@ bool GameModel::placeShips()
     return true;
 }
 
-GameModel::GameModel()
-{
-
-
-
-    for (int y=0;y<10;y++)
-        for (int x=0;x<10;x++)
-        {
-            board[x][y].cellType = CellType::FREE;
-        }
-
-    if (!placeShips())
-    {
-        placeShips();
-    }
-
-
-}
-
-
-
-bool GameModel::placeHShip(Ship* ship)
+bool GameController::placeHShip(Ship* ship)
 {
     if (ship->end.x>9) {
         return false;
@@ -111,7 +81,7 @@ bool GameModel::placeHShip(Ship* ship)
     for (int y = startY;y <= endY; y++)
         for (int x = startX;x <= endX; x++)
         {
-            if (getCell(x,y).cellType==CellType::SHIP)
+            if (_model->getCell(x,y).cellType==CellType::SHIP)
             {
                 return false;
             };
@@ -121,15 +91,15 @@ bool GameModel::placeHShip(Ship* ship)
     for (int y = startY;y <= endY; y++)
         for (int x = startX;x <= endX; x++)
         {
-            if (getCell(x,y).cellType==CellType::FREE)
+            if (_model->getCell(x,y).cellType==CellType::FREE)
             {
-            setCell(x,y,Cell{CellType::AROUND,ship});
+            _model->setCell(x,y,Cell{CellType::AROUND,ship});
             }
         }
 
     for (int i=0;i<ship->lenght;i++)
     {
-        setCell(ship->start.x+i,
+        _model->setCell(ship->start.x+i,
                 ship->start.y,
                 Cell{CellType::SHIP,ship});
     }
@@ -139,7 +109,7 @@ bool GameModel::placeHShip(Ship* ship)
 
 }
 
-bool GameModel::placeVShip(Ship* ship)
+bool GameController::placeVShip(Ship* ship)
 {
     if ((ship->end.y)>9) {
         return false;
@@ -157,7 +127,7 @@ bool GameModel::placeVShip(Ship* ship)
         for (int y = startY;y <= endY; y++)
             for (int x = startX;x <= endX; x++)
             {
-                if (getCell(x,y).cellType==CellType::SHIP)
+                if (_model->getCell(x,y).cellType==CellType::SHIP)
                {
                     return false;
                 };
@@ -167,9 +137,9 @@ bool GameModel::placeVShip(Ship* ship)
         for (int y = startY;y <= endY; y++)
             for (int x = startX;x <= endX; x++)
             {
-                if (getCell(x,y).cellType==CellType::FREE)
+                if (_model->getCell(x,y).cellType==CellType::FREE)
                 {
-                setCell(x,y,Cell{CellType::AROUND,ship});
+                _model->setCell(x,y,Cell{CellType::AROUND,ship});
                 }
             }
 
@@ -178,7 +148,7 @@ bool GameModel::placeVShip(Ship* ship)
             Cell cell;
             cell.ship=ship;
             cell.cellType=CellType::SHIP;
-            setCell(ship->start.x,ship->start.y+i,cell);
+            _model->setCell(ship->start.x,ship->start.y+i,cell);
         }
         return true;
 
@@ -188,7 +158,7 @@ bool GameModel::placeVShip(Ship* ship)
 }
 
 
-bool GameModel::placeShip(Ship* ship)
+bool GameController::placeShip(Ship* ship)
 {
 
     bool res =false;
@@ -226,6 +196,3 @@ bool GameModel::placeShip(Ship* ship)
         return res;
 
 }
-
-
-

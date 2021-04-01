@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 #include "boardgamescene.h"
-#include "Models/GameModel.h"
+#include "Models/BoardModel.h"
+#include "Controllers/GameController.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,13 +19,19 @@ public:
     ~MainWindow();
 
 private:
-    void initScene();
-    GameModel* gameModel_1;
-    GameModel* gameModel_2;
+
+    void initGame();
+    BoardModel* gameModel_1;
+    BoardModel* gameModel_2;
+    GameController*  boardController1;
+    GameController* boardController2;
 
     Ui::MainWindow *ui;
     BoardGameScene *userScene1;
     BoardGameScene *userScene2;
+
+
+
 
 
 };

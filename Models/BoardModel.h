@@ -1,6 +1,7 @@
 #ifndef GAMEMODEL_H
 #define GAMEMODEL_H
 
+#include "Observer/Observer.h"
 
 enum class CellType
 {
@@ -49,24 +50,48 @@ struct Cell{
 
 
 
-class GameModel
+class BoardModel : public Observable
 {
 
 
 public:
 
-    Ship* ships[10];
-    Cell getCell(int x, int y);
+
+    const Cell getCell(int x, int y);
+
     void setCell(int x, int y, Cell cell);
 
-    GameModel();
+    const Ship* getShip(int index)
+    {
+      if ((index>=0)&&(index<=9))
+        {
+          return ships[index];
+        }
+      else
+        {
+          return nullptr;
+        }
+
+    }
+    void setShip(Ship* ship,int index)
+    {
+      if ((index>=0)&&(index<=9))
+        {
+          ships[index] = ship;
+        }
+    }
+
+    BoardModel();
     bool placeShip(Ship* ship);
+
 private:
+    Ship* ships[10];
     bool placeHShip(Ship* ship);
     bool placeVShip(Ship* ship);
     bool placeShips();
 
     Cell board[10][10];
+    Cell operator[](int index);
 };
 
 #endif // GAMEMODEL_H

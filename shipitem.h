@@ -2,13 +2,13 @@
 #define SHIPITEM_H
 
 #include <QGraphicsItem>
-#include "Models/GameModel.h"
+#include "Models/BoardModel.h"
 
 
 class ShipItem : public QGraphicsItem
 {
 public:
-  ShipItem(Ship *ship);
+  ShipItem(const Ship *ship);
   virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
   virtual QRectF boundingRect() const;
 

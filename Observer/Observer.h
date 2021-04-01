@@ -19,10 +19,10 @@ class Observer
 class Observable
 {
     public:
-    //Добавить наблюдателя
+
     void addObserver(Observer *observer);
 
-     //Обновить игровое представление
+
     void notifyUpdate();
 
     private:

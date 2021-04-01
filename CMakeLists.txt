@@ -42,12 +42,16 @@ set(PROJECT_SOURCES
         startgamedialog.ui
         Observer/Observer.cpp
         Observer/Observer.h
-        Controllers/BoardController.cpp
-        Controllers/BoardController.h
+        Controllers/GameController.cpp
+        Controllers/GameController.h
+        Models/BoardModel.cpp
+        Models/BoardModel.h
         Models/GameModel.cpp
         Models/GameModel.h
         shipitem.cpp
         shipitem.h
+        gameview.cpp
+        gameview.h
 
         ${TS_FILES}
 )
