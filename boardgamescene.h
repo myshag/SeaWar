@@ -17,7 +17,7 @@ public:
     BoardGameScene(BoardModel* model);
 
     void drawBackground(QPainter * painter, const QRectF & rect ) override;
-    virtual void update();
+    void updateObserver();
 
 private:
     QColor lineColor = QColor(250,250, 250,255);

@@ -13,7 +13,7 @@
 class Observer
 {
     public:
-    virtual void update() = 0;
+    virtual void updateObserver() = 0;
 };
 
 class Observable

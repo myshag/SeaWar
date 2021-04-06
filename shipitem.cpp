@@ -2,17 +2,30 @@
 #include <QPainter>
 
 #include "QDebug"
+#include "exception"
 
 
 ShipItem::ShipItem(const Ship *ship)
 {
-  this->x = ship->start.x;
-  this->y=ship->start.y;
 
-  this->len = ship->lenght;
-  this->direction = ship->direction;
+  if (ship==nullptr)
+    {
 
-  qDebug("Create ship: x= %d, y= %d, direction=%d,len=%d",x,y,direction,len);
+      qFatal( "[Fatal Error] ShipItem::ShipItem(): ship is nullptr");
+      throw std::exception();
+
+    }
+
+    x = ship->start().x;
+    y=ship->start().y;
+
+    len = ship->lenght();
+    direction = ship->direction();
+
+    qDebug("Created ship: x= %d, y= %d, direction=%d,len=%d",x,y,direction,len);
+
+
+
 
 
 }
@@ -24,7 +37,7 @@ void ShipItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, 
   painter->scale(0.99,0.99);
 
   float sizeship=sizeBoard/10;
-   painter->setBrush(QBrush(QColor(30,255,100,150), Qt::SolidPattern));
+   painter->setBrush(QBrush(QColor(30,255,100,100), Qt::SolidPattern));
    QPen pen(Qt::black, 1);
    painter->setPen(pen);
    if (direction==Direction::Horizontal)

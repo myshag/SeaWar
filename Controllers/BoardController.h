@@ -8,13 +8,13 @@
 #include "qDebug"
 
 
-class GameController: public QObject
+class BoardController: public QObject
 {
 
   Q_OBJECT
 
   public:
-  GameController(BoardModel* model );
+  BoardController(BoardModel* model );
 
 
 

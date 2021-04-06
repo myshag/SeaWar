@@ -44,10 +44,14 @@ set(PROJECT_SOURCES
         Observer/Observer.h
         Controllers/GameController.cpp
         Controllers/GameController.h
+        Controllers/BoardController.cpp
+        Controllers/BoardController.h
         Models/BoardModel.cpp
         Models/BoardModel.h
         Models/GameModel.cpp
         Models/GameModel.h
+        Models/Ship.cpp
+        Models/Ship.h
         shipitem.cpp
         shipitem.h
         gameview.cpp

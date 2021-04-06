@@ -1,7 +1,8 @@
-#ifndef GAMEMODEL_H
-#define GAMEMODEL_H
+#ifndef BOARDMODEL_H
+#define BOARDMODEL_H
 
 #include "Observer/Observer.h"
+#include "models/ship.h"
 
 enum class CellType
 {
@@ -14,40 +15,14 @@ enum class CellType
 
 };
 
-struct Point
-{
-    int x;
-    int y;
-
-};
-
-enum class Direction
-{
-
-   Horizontal,
-  Vertical
-
-};
 
 
-struct Ship {
-    Point start;
-    Point end;
-    int lenght;
-    bool isdead;
-    Direction direction;
-    int id;
-
-
-};
 
 
 struct Cell{
     CellType cellType;
     Ship* ship;
 };
-
-
 
 
 class BoardModel : public Observable
@@ -79,11 +54,14 @@ public:
         {
           ships[index] = ship;
         }
+      notifyUpdate();
     }
 
     BoardModel();
+    ~BoardModel();
     bool placeShip(Ship* ship);
 
+    void changeCellType(int x, int y, CellType newcelltype);
 private:
     Ship* ships[10];
     bool placeHShip(Ship* ship);
@@ -91,7 +69,7 @@ private:
     bool placeShips();
 
     Cell board[10][10];
-    Cell operator[](int index);
+
 };
 
-#endif // GAMEMODEL_H
+#endif // BOARDMODEL_H

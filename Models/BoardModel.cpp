@@ -23,13 +23,21 @@ void BoardModel::setCell(int x, int y, Cell cell)
     {
         board[x][y] = cell;
     }
+    notifyUpdate();
 }
+
+void BoardModel::changeCellType(int x, int y, CellType newcelltype)
+{
+   board[x][y].cellType =newcelltype;
+   notifyUpdate();
+
+}
+
 
 
 
 BoardModel::BoardModel()
 {
-
 
 
     for (int y=0;y<10;y++)
@@ -38,14 +46,19 @@ BoardModel::BoardModel()
             board[x][y].cellType = CellType::FREE;
         }
 
-
+qDebug()<<"BoardModel.cpp: Create instance class BoardModel";
 
 }
 
-Cell BoardModel::operator[](int index)
+BoardModel::~BoardModel()
 {
-
+  for (int i=0;i<10;i++)
+    {
+      delete ships[i];
+    }
+  qDebug()<<"BoardModel.cpp: delete instance class BoardModel";
 }
+
 
 
 

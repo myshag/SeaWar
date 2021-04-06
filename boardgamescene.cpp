@@ -6,12 +6,16 @@
 
 BoardGameScene::BoardGameScene(BoardModel* model)
 {
+
   _model=model;
+  _model->addObserver(this);
 
    for (int i=0; i<10;i++)
      {
       addItem(new ShipItem(_model->getShip(i)));
      }
+
+     qDebug()<<"shipitem.cpp: Create instance class BoardGameScene";
 
 }
 
@@ -20,6 +24,7 @@ BoardGameScene::BoardGameScene(BoardModel* model)
 
 void BoardGameScene::drawBackground(QPainter *painter, const QRectF &rect)
 {
+   setSceneRect(0,0,100,100);
    painter->setRenderHint(
       QPainter::Antialiasing);
      painter->setPen(cellPen);
@@ -44,36 +49,31 @@ void BoardGameScene::drawBackground(QPainter *painter, const QRectF &rect)
              } else if (_model->getCell(x,y).cellType == CellType::DEMAGE)
              {
 
-              painter->setPen(QPen(QColor(250,250, 250,255),1, Qt::DotLine));
-              painter->setBrush(QBrush(QColor(0, 0, 200,100), Qt::SolidPattern));
+               painter->setPen(QPen(QColor(255, 0, 0,255),1, Qt::DotLine));
+               painter->setBrush(QBrush(QColor(255, 0, 0,255), Qt::SolidPattern));
 
              painter->drawRect(sx+stepX*x,
                                sy+stepY*y,
                                stepX,stepY);
 
-             painter->setPen(QPen(QColor(100, 0, 0,150),1, Qt::DotLine));
-             painter->setBrush(QBrush(QColor(200, 0, 0,150), Qt::SolidPattern));
 
-             painter->drawEllipse(sx+stepX*x+stepX/2-5,
-                               sy+stepY*y+stepY/2-5,10,10);
              }
            else if (_model->getCell(x,y).cellType == CellType::MISS)
              {
+
+
+               painter->setPen(QPen(QColor(100, 0, 0,150),1, Qt::DotLine));
+               painter->setBrush(QBrush(QColor(200, 0, 0,150), Qt::SolidPattern));
+
+               painter->drawEllipse(sx+stepX*x+stepX/2-5,
+                                 sy+stepY*y+stepY/2-5,10,10);
                painter->setPen(QPen(QColor(250,250, 250,255),1, Qt::DotLine));
                painter->setBrush(QBrush(QColor(0, 0, 200,100), Qt::SolidPattern));
 
                painter->drawRect(sx+stepX*x,
                                  sy+stepY*y,
                                  stepX, stepX);
-               painter->drawLine( sx+stepX*x,
-                                  sy+stepY*y,
-                                  sx+stepX*x+stepX,
-                                  sy+stepY*y+stepY);
 
-               painter->drawLine( sx+stepX*x+stepX,
-                                  sy+stepY*y,
-                                  sx+stepX*x,
-                                  sy+stepY*y+stepY);
 
              } else if (_model->getCell(x,y).cellType == CellType::AROUND)
              {
@@ -99,7 +99,7 @@ void BoardGameScene::drawBackground(QPainter *painter, const QRectF &rect)
                int id=0;
                if (_model->getCell(x,y).ship!=nullptr)
                  {
-                   id = _model->getCell(x,y).ship->id;
+                   id = _model->getCell(x,y).ship->id();
                  }
 
                painter->setPen(QPen(QColor(250,250, 250,255),1, Qt::DotLine));
@@ -124,9 +124,13 @@ void BoardGameScene::drawBackground(QPainter *painter, const QRectF &rect)
 
 }
 
-void BoardGameScene::update()
+void BoardGameScene::updateObserver()
 {
-  this->update();
+  qDebug() <<"BoardGameScene::update()";
+  //this->views().first()->update();
+  this->invalidate();
+  //update(0,0,width(),height());
+
  // for (auto s:this->items())
  //   {
  //     (Ship*)s->update();

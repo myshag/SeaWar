@@ -8,13 +8,11 @@ class GameModel
 {
 public:
   GameModel();
+  virtual ~GameModel();
 
-private:
+
   BoardModel* BoardHuman;
-
   BoardModel* BoardAI;
-
-
 };
 
 #endif // GAMEMODEL_H

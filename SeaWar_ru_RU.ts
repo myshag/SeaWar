@@ -4,23 +4,13 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="mainwindow.ui" line="14"/>
-        <source>MainWindow</source>
+        <location filename="mainwindow.ui" line="26"/>
+        <source>SeaWAR</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="mainwindow.ui" line="32"/>
-        <source>СЧЕТ 0:0</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="48"/>
+        <location filename="mainwindow.ui" line="36"/>
         <source>Игровое поле</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="mainwindow.ui" line="60"/>
-        <source>Мой флот</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

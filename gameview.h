@@ -10,12 +10,12 @@ class GameView : public QGraphicsView
   Q_OBJECT
 public:
   GameView(QWidget *parent=0);
-  void mousePressEvent(QGraphicsSceneMouseEvent *event);
+  void mousePressEvent(QMouseEvent *event) override;
 
 
 signals:
-  void CursorSceneCoordsX(int coordX);
-  void CursorSceneCoordsY(int coordY);
+  void pressMouseOnBoard(int x,int y);
+
 
 };
 

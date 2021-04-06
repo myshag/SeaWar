@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include "boardgamescene.h"
 #include "Models/BoardModel.h"
+#include "Models/GameModel.h"
+#include "Controllers/BoardController.h"
 #include "Controllers/GameController.h"
 
 QT_BEGIN_NAMESPACE
@@ -21,14 +23,14 @@ public:
 private:
 
     void initGame();
-    BoardModel* gameModel_1;
-    BoardModel* gameModel_2;
-    GameController*  boardController1;
-    GameController* boardController2;
+    GameModel* gameModel;
+    GameController* controller;
+
 
     Ui::MainWindow *ui;
-    BoardGameScene *userScene1;
-    BoardGameScene *userScene2;
+    GameModel* boardModel;
+    BoardGameScene *AIBoardScene;
+    BoardGameScene *HumanBoardScene;
 
 
 
