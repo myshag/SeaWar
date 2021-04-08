@@ -4,16 +4,20 @@
 #include "shipitem.h"
 
 
-BoardGameScene::BoardGameScene(BoardModel* model)
+BoardGameScene::BoardGameScene(BoardModel* model,bool showShips)
 {
 
   _model=model;
   _model->addObserver(this);
+  this->showShips = showShips;
 
+  if (showShips)
+    {
    for (int i=0; i<10;i++)
      {
       addItem(new ShipItem(_model->getShip(i)));
      }
+    }
 
      qDebug()<<"shipitem.cpp: Create instance class BoardGameScene";
 
@@ -49,8 +53,8 @@ void BoardGameScene::drawBackground(QPainter *painter, const QRectF &rect)
              } else if (_model->getCell(x,y).cellType == CellType::DEMAGE)
              {
 
-               painter->setPen(QPen(QColor(255, 0, 0,255),1, Qt::DotLine));
-               painter->setBrush(QBrush(QColor(255, 0, 0,255), Qt::SolidPattern));
+               painter->setPen(QPen(QColor(150, 40, 100,255),1, Qt::DotLine));
+               painter->setBrush(QBrush(QColor(150, 40, 100,255), Qt::SolidPattern));
 
              painter->drawRect(sx+stepX*x,
                                sy+stepY*y,
@@ -67,9 +71,8 @@ void BoardGameScene::drawBackground(QPainter *painter, const QRectF &rect)
 
                painter->drawEllipse(sx+stepX*x+stepX/2-5,
                                  sy+stepY*y+stepY/2-5,10,10);
-               painter->setPen(QPen(QColor(250,250, 250,255),1, Qt::DotLine));
-               painter->setBrush(QBrush(QColor(0, 0, 200,100), Qt::SolidPattern));
-
+               painter->setPen(cellPen);
+               painter->setBrush(cellBrush);
                painter->drawRect(sx+stepX*x,
                                  sy+stepY*y,
                                  stepX, stepX);
@@ -78,20 +81,14 @@ void BoardGameScene::drawBackground(QPainter *painter, const QRectF &rect)
              } else if (_model->getCell(x,y).cellType == CellType::AROUND)
              {
 
-               painter->setPen(QPen(QColor(250,250, 250,255),1, Qt::DotLine));
-               painter->setBrush(QBrush(QColor(0, 0, 200,100), Qt::SolidPattern));
-
-
-
+               painter->setPen(cellPen);
+               painter->setBrush(cellBrush);
 
                painter->drawRect(sx+stepX*x,
                                  sy+stepY*y,
                                  stepX, stepX);
 
-               /* painter->setPen(QPen(QColor(25,250, 250,255),1, Qt::SolidLine));
-               painter->drawText(start_x+step_x*x+step_x/2-5,
-                                 start_y+step_y*y+step_y/2-5,QString::number(id));
-              */
+
 
              }
            else if (_model->getCell(x,y).cellType == CellType::SHIP)
@@ -102,16 +99,12 @@ void BoardGameScene::drawBackground(QPainter *painter, const QRectF &rect)
                    id = _model->getCell(x,y).ship->id();
                  }
 
-               painter->setPen(QPen(QColor(250,250, 250,255),1, Qt::DotLine));
-               painter->setBrush(QBrush(QColor(0, 0, 200,100), Qt::SolidPattern));
+               painter->setPen(cellPen);
+               painter->setBrush(cellBrush);
 
                painter->drawRect(sx+stepX*x,
                                  sy+stepY*y,
                                  stepX, stepX);
-              /* painter->setPen(QPen(QColor(25,250, 250,255),1, Qt::SolidLine));
-               painter->drawText(start_x+step_x*x+step_x/2-5,
-                                 start_y+step_y*y+step_y/2-5,QString::number(id));*/
-
 
              }
          }

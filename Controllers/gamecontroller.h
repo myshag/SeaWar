@@ -4,8 +4,8 @@
 #include <QObject>
 #include "Models/gamemodel.h"
 #include "Controllers/BoardController.h"
+#include  "QRandomGenerator"
 
-enum class ShootResult {L,R,KILL};
 
 class GameController : public QObject
 {
@@ -14,7 +14,11 @@ public:
   explicit GameController(GameModel* model);
   void placeAIShips();
   void placeHumanShips();
-  ShootResult humanShoot(int x,int y);
+  void gameOver();
+  void aiStep(bool killloop=false);
+  Point genStep();
+
+
 
 signals:
 
@@ -23,9 +27,13 @@ public slots:
 
 private:
   GameModel* _model;
+  int humanShips=10;
+  int aiShips=10;
 
   BoardController* aiBoardController;
   BoardController* humanBoardController;
+  QRandomGenerator* gen=QRandomGenerator::global();
+
 
 
 };

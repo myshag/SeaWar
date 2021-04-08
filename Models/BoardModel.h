@@ -60,6 +60,7 @@ public:
     BoardModel();
     ~BoardModel();
     bool placeShip(Ship* ship);
+     int leavShips();
 
     void changeCellType(int x, int y, CellType newcelltype);
 private:
@@ -67,6 +68,7 @@ private:
     bool placeHShip(Ship* ship);
     bool placeVShip(Ship* ship);
     bool placeShips();
+
 
     Cell board[10][10];
 

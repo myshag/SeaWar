@@ -55,7 +55,7 @@ public:
   }
 
 
-  void setDemage(int x);
+  void setDemage();
 
 
 
@@ -66,8 +66,8 @@ private:
     const int m_lenght;
          bool m_isdead=false;
     const Direction m_direction;
-   const int m_id;
-    bool m_demage[3]={false};
+    const int m_id;
+          int m_demage=0;
 
 
 };

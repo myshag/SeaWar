@@ -3,31 +3,23 @@
 
 
 Ship::Ship(int id, Point start, Point end,int len,Direction direction):
-  m_id(id),m_start(start),m_end(end),m_lenght(len),m_direction(direction)
+  m_id(id),m_start(start),m_end(end),m_lenght(len),m_direction(direction),m_demage(len)
 {
-  for (int i=len-1;i<=3;i++)
-    {
-      m_demage[i] = true;
-    }
 
 }
 
-void Ship::setDemage(int x)
+void Ship::setDemage()
 {
-  if (x<m_lenght)
+  if ((m_demage-1)<=0)
     {
-      m_demage[x]=true;
+      m_demage = 0;
+      m_isdead = true;
+      qDebug()<<"Ship::kill: m_demage"<<m_demage;
+
     }
-  bool dead = true;
-  for(bool c:m_demage)
-    {
-      if (!c) {
-          dead = false;
-        }
-    }
-  if (dead)
-  {
-     m_isdead=true;
-    }
+
+  m_demage-=1;
+
+  qDebug()<<"Ship::setDemage: m_demage"<<m_demage;
 }
 

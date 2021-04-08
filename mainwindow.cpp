@@ -16,8 +16,8 @@ MainWindow::MainWindow(QWidget *parent)
     controller->placeHumanShips();
 
 
-    AIBoardScene = new BoardGameScene(gameModel->BoardAI);
-    HumanBoardScene = new BoardGameScene(gameModel->BoardHuman);
+    AIBoardScene = new BoardGameScene(gameModel->BoardAI,false);
+    HumanBoardScene = new BoardGameScene(gameModel->BoardHuman,true);
 
     ui->aiBoardView->setScene(AIBoardScene);
     ui->humanBoardView->setScene(HumanBoardScene);

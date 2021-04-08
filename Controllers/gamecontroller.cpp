@@ -1,4 +1,5 @@
 #include "gamecontroller.h"
+#include "QMessageBox"
 
 GameController::GameController(GameModel *model)
 {
@@ -23,32 +24,68 @@ void GameController::placeHumanShips()
 
 }
 
-ShootResult GameController::humanShoot(int x, int y)
+
+
+void GameController::gameOver()
 {
 
-  qDebug()<<"gamecontroller.cpp: humanShoot()";
+  QMessageBox msgBox;
+    msgBox.setText("The GameOver");
+    msgBox.exec();
 
 }
 
+void GameController::aiStep(bool killloop=false)
+{
+  //CellType celltype;
+  static int x;
+  static int y;
+
+  static CellType celltype;
+  static ShootResult resShoot;
+
+  if (!killloop)
+    {
+      ShootResult= humanBoardController->shoot(genStep());
+    }
+
+
+  if (resShoot==ShootResult::WRECKED)
+    {
+      killloop=true;
+
+      humanBoardController->shoot(x+1,y);
+    }
+
+
+
+
+}
+
+Point GameController::genStep()
+{
+  int x,y;
+  CellType celltype;
+  do {
+      x = gen->bounded(0,10);
+      y = gen->bounded(0,10);
+      celltype = _model->BoardHuman->getCell(x,y).cellType;
+      qDebug()<<x<<y<<"celltype"<<(int)celltype;
+    } while ((celltype==CellType::DEMAGE)||
+             (celltype==CellType::MISS)||
+             (celltype==CellType::KILL));
+
+  return Point{x,y};
+
+
+}
+
+
+
+
 GameController::pressMouseOnBoard(int x, int y)
 {
-  CellType celltype = _model->BoardAI->getCell(x,y).cellType;
-  Cell cell =_model->BoardAI->getCell(x,y);
+  aiBoardController->shoot(x,y);
+  aiStep();
 
-  qDebug()<<x<<y;
-  switch (celltype) {
-    case CellType::AROUND:
-    case CellType::FREE:
-      _model->BoardAI->changeCellType(x,y,CellType::MISS);
-      break;
-     case CellType::SHIP:
-      qDebug()<<"Shoot in ship"<<cell.ship->id();
-       _model->BoardAI->changeCellType(x,y,CellType::DEMAGE);
-       cell.ship->setDemage(1);
-
-
-
-    default:
-      break;
-   }
 }
