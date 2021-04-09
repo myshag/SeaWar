@@ -15,7 +15,7 @@ public:
   void placeAIShips();
   void placeHumanShips();
   void gameOver();
-  void aiStep(bool killloop=false);
+  void aiStep(bool loopkill=false);
   Point genStep();
 
 

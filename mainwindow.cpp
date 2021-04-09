@@ -50,11 +50,5 @@ void MainWindow::initGame()
     userScene1 = new BoardGameScene(gameModel_1);
     userScene2 = new BoardGameScene(gameModel_2);*/
 
-
-
-
-
-
-
 }
 

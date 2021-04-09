@@ -35,7 +35,7 @@ void GameController::gameOver()
 
 }
 
-void GameController::aiStep(bool killloop=false)
+void GameController::aiStep(bool loopkill=false)
 {
   //CellType celltype;
   static int x;
@@ -44,7 +44,7 @@ void GameController::aiStep(bool killloop=false)
   static CellType celltype;
   static ShootResult resShoot;
 
-  if (!killloop)
+  if (!loopkill)
     {
       ShootResult= humanBoardController->shoot(genStep());
     }
