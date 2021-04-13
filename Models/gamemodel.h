@@ -11,6 +11,7 @@ public:
   virtual ~GameModel();
 
 
+
   BoardModel* BoardHuman;
   BoardModel* BoardAI;
 };

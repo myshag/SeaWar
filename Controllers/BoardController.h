@@ -7,8 +7,8 @@
 #include  "QRandomGenerator"
 #include "qDebug"
 
-
 enum class ShootResult {MISS,WRECKED,KILL};
+
 
 class BoardController: public QObject
 {
@@ -33,6 +33,7 @@ public slots:
   bool placeShip(Ship *ship);
   bool placeShips();
   void killShip(Ship* ship);
+  void killShip(int x,int y);
   ShootResult shoot(int x, int y);
   ShootResult shoot(Point point);
 

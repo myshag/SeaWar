@@ -1,5 +1,6 @@
 #include "gamecontroller.h"
 #include "QMessageBox"
+#include "vector"
 
 GameController::GameController(GameModel *model)
 {
@@ -26,7 +27,7 @@ void GameController::placeHumanShips()
 
 
 
-void GameController::gameOver()
+void GameController::gameOver(bool humanWine)
 {
 
   QMessageBox msgBox;
@@ -35,30 +36,63 @@ void GameController::gameOver()
 
 }
 
-void GameController::aiStep(bool loopkill=false)
+void GameController::findShipStep()
 {
-  //CellType celltype;
-  static int x;
-  static int y;
+   humanBoardController->shoot(wreckedShip.x+1,wreckedShip.y);
+   findShiploop=false;
 
-  static CellType celltype;
-  static ShootResult resShoot;
+}
 
-  if (!loopkill)
+void GameController::aiStep()
+{
+
+  if (!isgameOver) {
+   std::vector<Point> findShipList;
+
+  qDebug() << "AI Step";
+  if (loopkill)
     {
-      ShootResult= humanBoardController->shoot(genStep());
+      loopkillStep();
+      return;
+    }
+
+  if (findShiploop)
+    {
+      findShipStep();
+      return;
     }
 
 
-  if (resShoot==ShootResult::WRECKED)
-    {
-      killloop=true;
+  Point currShoot = genStep();
 
-      humanBoardController->shoot(x+1,y);
+  lastAIShootResult = humanBoardController->shoot(currShoot);
+
+
+  if (lastAIShootResult==ShootResult::WRECKED)
+    {
+      findShiploop = true;
+      wreckedShip = currShoot;
+      for (int i=0;i<4;i++)
+        {
+
+          //findShipList.insert();
+        }
+
+      aiStep();
     }
 
-
-
+  if (lastAIShootResult==ShootResult::KILL)
+    {
+      humanBoardController->killShip(currShoot.x,currShoot.y);
+      aliveHumanShips--;
+      if(aliveHumanShips<=0)
+        {
+          isgameOver = true;
+          gameOver(false);
+        }
+    };
+  //qDebug() << "Human Step";
+    }
 
 }
 
@@ -85,7 +119,33 @@ Point GameController::genStep()
 
 GameController::pressMouseOnBoard(int x, int y)
 {
-  aiBoardController->shoot(x,y);
-  aiStep();
+  if (!isgameOver)
+    {
+  ShootResult resShoot;
+  resShoot =aiBoardController->shoot(x,y);
+
+  if (resShoot==ShootResult::KILL)
+    {
+       aiBoardController->killShip(x,y);
+       aliveAIShips--;
+       if(aliveAIShips<=0)
+         {
+           isgameOver = true;
+           gameOver(true);
+         }
+    };
+
+  if (resShoot==ShootResult::MISS)
+  {
+    aiStep();
+  }
+
+}
+
+
+}
+
+void GameController::loopkillStep()
+{
 
 }

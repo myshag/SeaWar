@@ -75,6 +75,11 @@ bool BoardController::placeShips()
   return true;
 }
 
+void BoardController::killShip(int x,int y)
+{
+  killShip(_model->getCell(x,y).ship);
+}
+
 void BoardController::killShip(Ship *ship)
 {
   int startX = ship->start().x-1;
